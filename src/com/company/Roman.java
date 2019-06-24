@@ -1,5 +1,8 @@
 package com.company;
 
+/**
+ *  Список допустимых римских чисел
+ */
 public enum Roman {
 
     I,

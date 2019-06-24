@@ -1,5 +1,9 @@
 package com.company;
 
+/**
+ *  Класс принимает данные подготовленные классом Data, и производит вычисления
+ */
+
 public class Calculator {
 
     public static int calculate(int firstNumber, int secondNumber, char operator){

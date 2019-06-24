@@ -9,17 +9,15 @@ public class Main {
 
         System.out.println("Введите данные:");
 
+        // Считывание строки
         String str = in.nextLine();
 
         try{
 
-        Data data = new Data(str);
+            // Подготовка данных
+            Data data = new Data(str);
 
-            // For tests
-            /*System.out.println("Первое число " + data.firstNumber());
-            System.out.println("Второе число " + data.secondNumber());
-            System.out.println("Оператор " + data.operator());*/
-
+            // Подсчет и вывод результата
             System.out.println(Calculator.calculate(data.firstNumber(), data.secondNumber(), data.operator()));
 
         }catch (CalculatorException e){
