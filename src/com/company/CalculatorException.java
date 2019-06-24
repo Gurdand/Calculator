@@ -1,4 +1,8 @@
 package com.company;
 
-public class CalculatorException {
+class CalculatorException extends Exception{
+
+    CalculatorException(String message){
+        super(message);
+    }
 }

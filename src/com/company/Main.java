@@ -7,43 +7,26 @@ public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
+        System.out.println("Введите данные:");
+
         String str = in.nextLine();
+
+        try{
 
         Data data = new Data(str);
 
-        System.out.println("Первое число " + data.getFirstNumber());
-        System.out.println("Второе число " + data.getSecondNumber());
-        System.out.println("Оператор " + data.getOperator());
+            // For tests
+            /*System.out.println("Первое число " + data.firstNumber());
+            System.out.println("Второе число " + data.secondNumber());
+            System.out.println("Оператор " + data.operator());*/
 
-        System.out.println(Calculator.calculate(data.getFirstNumber(),data.getSecondNumber(),data.getOperator()));
+            System.out.println(Calculator.calculate(data.firstNumber(), data.secondNumber(), data.operator()));
 
-        /*System.out.println(Arrays.toString(Roman.values()));
-
-
-        System.out.println("Введите число");
-        String str = in.nextLine();
-
-        String[] str2 = Data.ParseData(str);
-
-        for (String s: str2
-             ) {
-            System.out.println(s);
-        }*/
-
-        //System.out.println("Оператор  " + Data.getChar(str));
-
-        //System.out.println("Число равно = " + Data.romanToInt(Data.trimAll(str)));
-
-        /*System.out.println("Введите операцию");
-
-        ch = Calculator.read(in);
-
-        for(int i : ch){
-            System.out.println((char)i);
+        }catch (CalculatorException e){
+            System.out.println(e.getMessage());
+            System.exit(0);
         }
 
-        System.out.println(Charset.defaultCharset());
-	// write your code here*/
     }
 
 }

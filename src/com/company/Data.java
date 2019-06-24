@@ -1,68 +1,79 @@
 package com.company;
 
+/**
+ *
+ */
+
 public class Data {
 
-    private String inputString;
+    private int firstNumber;
+    private int secondNumber;
+    private char operator = ' ';
 
-    public Data(String inputString){
-        this.inputString = inputString;
-    }
+    public Data(String string) throws CalculatorException{
 
-    protected int getFirstNumber(){
+        String inputString = trimAll(string);
+
         if (Character.isLetter(inputString.charAt(0))){
-            return romanToInt(parseData(inputString)[0]);
+            firstNumber = romanToInt(parseData(inputString)[0]);
+            secondNumber = romanToInt(parseData(inputString)[1]);
+        }else if (checkInt(parseData(inputString))){
+            firstNumber = Integer.parseInt(parseData(inputString)[0]);
+            secondNumber = Integer.parseInt(parseData(inputString)[1]);
         }else {
-            return Integer.parseInt(parseData(inputString)[0]);
+            throw new CalculatorException("Введены неверные данные!");
         }
-    }
-
-    protected int getSecondNumber(){
-        if (Character.isLetter(inputString.charAt(0))){
-            return romanToInt(parseData(inputString)[1]);
-        }else {
-            return Integer.parseInt(parseData(inputString)[1]);
-        }
-    }
-
-    protected char getOperator(){
-
-        char sim = ' ';
+        if (firstNumber <= 0 || firstNumber > 10) throw new CalculatorException("Неверные данные!");
+        if (secondNumber <= 0 || secondNumber > 10) throw new CalculatorException("Неверные данные!");
 
         for(char ch: inputString.toCharArray()) {
             if(ch == '+'||ch == '-'||ch == '/'||ch == '*' ){
-                return ch;
+                this.operator = ch;
+                break;
             }
         }
-
-        return sim;
+        if (operator == ' ') throw new CalculatorException("Недопустимый оператор!");
     }
 
-    private String[] parseData(String string) {
+    public int firstNumber(){
+        return this.firstNumber;
+    }
+
+    public int secondNumber(){
+        return this.secondNumber;
+    }
+
+    public char operator(){
+        return this.operator;
+    }
+
+    private String[] parseData(String string) throws CalculatorException{
         String[] str = string.split("[+-/*]");
+
+        if (str.length != 2) throw new CalculatorException("Неверные данные!");
+
         return str;
     }
 
-    /*public static char getChar(String string){
-
-        char sim = ' ';
-
-        for(char ch: string.toCharArray()) {
-            if(ch == '+'||ch == '-'||ch == '/'||ch == '*' ){
-                return ch;
+    private boolean checkInt(String[] array){
+        for(String str: array){
+            for(char ch: str.toCharArray()){
+                if(Character.isLetter(ch)){
+                    return false;
+                }
             }
         }
-
-        return sim;
-    }*/
+        return true;
+    }
 
     private String trimAll(String string){
-        char[] ch = string.toCharArray();
+        char[] charArray = string.toCharArray();
         StringBuilder str = new StringBuilder();
-        for (char sim: ch){
-            if (sim == 32){
+        for (char s: charArray){
+            if (s == 32){
                 continue;
             }
-            str.append(sim);
+            str.append(s);
         }
         return str.toString();
     }
