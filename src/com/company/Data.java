@@ -10,6 +10,7 @@ public class Data {
     private int firstNumber;
     private int secondNumber;
     private char operator = ' ';
+    private boolean isRoman = false;
 
     public Data(String string) throws CalculatorException{
 
@@ -18,6 +19,7 @@ public class Data {
         if (Character.isLetter(inputString.charAt(0))){ // Если рмские цифры
             firstNumber = romanToInt(parseData(inputString)[0]);
             secondNumber = romanToInt(parseData(inputString)[1]);
+            isRoman = true;
 
         }else if (checkInt(parseData(inputString))){ // Если арабские цифры
             firstNumber = Integer.parseInt(parseData(inputString)[0]);
@@ -39,7 +41,7 @@ public class Data {
         if (operator == ' ') throw new CalculatorException("Недопустимый оператор!");
     }
 
-    public int firstNumber(){
+    /*public int firstNumber() {
         return this.firstNumber;
     }
 
@@ -49,6 +51,14 @@ public class Data {
 
     public char operator(){
         return this.operator;
+    }*/
+
+    public void showResult(){
+        if (isRoman){
+            System.out.println(toRoman(Calculator.calculate(firstNumber,secondNumber,operator)));
+        }else {
+            System.out.println(Calculator.calculate(firstNumber,secondNumber,operator));
+        }
     }
 
     /**
@@ -113,4 +123,47 @@ public class Data {
         }
         return -1;
     }
+
+    /**
+     *  Возвращает строку с римским представлением числа
+     * @param number
+     * @return
+     */
+    private String toRoman(int number) {
+            if (number == 100) return "C";
+
+            StringBuilder result = new StringBuilder();
+
+            if (number < 0) {
+                number = Math.abs(number);
+                result.append("Отрицательное ");
+            }
+
+            if (number >= 90) {
+                number -= 90;
+                result.append("XC");
+            }
+
+            if (number >= 50) {
+                number -= 50;
+                result.append("L");
+            }
+
+            if (number >= 40) {
+                number -= 40;
+                result.append("XL");
+            }
+
+            for ( ; number >= 10; ) {
+                number -= 10;
+                result.append("X");
+            }
+
+            if (number > 0) result.append(Roman.values()[number-1]);
+
+            if (number == 0 && result.length() == 0) return "Ноль";
+
+            return result.toString();
+    }
+
 }

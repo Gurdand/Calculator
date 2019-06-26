@@ -18,7 +18,7 @@ public class Main {
             Data data = new Data(str);
 
             // Подсчет и вывод результата
-            System.out.println(Calculator.calculate(data.firstNumber(), data.secondNumber(), data.operator()));
+            data.showResult();
 
         }catch (CalculatorException e){
             System.out.println(e.getMessage());
